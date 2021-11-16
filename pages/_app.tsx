@@ -1,5 +1,8 @@
 import type { AppProps } from 'next/app'
-import { createGlobalStyle, ThemeProvider } from 'styled-components'
+import { createGlobalStyle } from 'styled-components'
+
+import { themes } from '../src/designTokens'
+import { ThemeProvider } from '../src/components'
 
 const GlobalStyle = createGlobalStyle`
   html {
@@ -23,15 +26,13 @@ const GlobalStyle = createGlobalStyle`
   }
 `
 
-const theme = {}
-
 export default function App(props: AppProps) {
   const { Component, pageProps } = props
 
   return (
     <>
       <GlobalStyle />
-      <ThemeProvider theme={theme}>
+      <ThemeProvider theme={themes.dark}>
         <Component {...pageProps} />
       </ThemeProvider>
     </>
