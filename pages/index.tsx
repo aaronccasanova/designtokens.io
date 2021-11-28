@@ -1,23 +1,21 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import styled from 'styled-components'
+import { Container } from '../src/components'
 
-import styles from '../styles/Home.module.css'
-
-import { Layout, ThemeProvider } from '../src/components'
-import { themes } from '../src/designTokens'
-
-const Container = styled.div`
-  background-color: var(--theme-color-background-default);
-  color: var(--theme-color-text-primary);
-  font-size: 50px;
-  padding: 20px;
-`
+// TODO:
+// - Clean up and PR all current changes.
+// - Use this file to test rendering a preview of all the tokens.
+// - Persist color-scheme in localStorage.
+// - Optimize parseToVars/ThemeProvider implementation.
+//   (In the performance tab, it looks like it's executing over 12ms)
+// - Generate and inject style tag in the head
+// - Inject script that reads theme from local storage and sets a class on the body
+// - See if we can generate a style sheet, inject in the head, and cache it.
+//
 
 const Home: NextPage = () => {
   return (
-    <Layout>
+    <>
       <Head>
         <title>Design Tokens IO</title>
         <meta
@@ -27,34 +25,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <main>
-        <h1>Design Tokens IO</h1>
-        <Container>
-          Default dark theme
-          <ThemeProvider theme={themes.light}>
-            <Container>
-              Nested light theme
-              <ThemeProvider theme={themes.dim}>
-                <Container>Nested dim theme</Container>
-              </ThemeProvider>
-            </Container>
-          </ThemeProvider>
-        </Container>
-      </main>
-
-      <footer className={styles.footer}>
-        <a
-          href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          aaronccasanova...{' '}
-          <span className={styles.logo}>
-            <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} />
-          </span>
-        </a>
-      </footer>
-    </Layout>
+      <Container>hi</Container>
+    </>
   )
 }
 

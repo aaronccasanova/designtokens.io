@@ -1,3 +1,21 @@
+import * as themes from './themes'
+
+export type ThemeKey = keyof typeof themes
+
+export type ThemeKeys = ThemeKey[]
+
+export const defaultThemeKey: ThemeKey = 'dark'
+
+export const themeKeys = Object.keys(themes) as ThemeKeys
+
+export const localStorageThemeKey = 'design-tokens-io-theme'
+
+export const designTokensThemeClass = 'design-tokens-io-theme'
+
+export function isThemeKey(theme: string): theme is ThemeKey {
+  return themeKeys.includes(theme as ThemeKey)
+}
+
 /**
  * Type representing both a Design Token and Design Token Alias Properties.
  *

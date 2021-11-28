@@ -1,12 +1,12 @@
 import React from 'react'
 import styled from 'styled-components'
 
-import { parseToVars, DesignTokens, themes } from '../../../designTokens'
+import { parseToVars, DesignTokens, themes } from '../../designTokens'
 
 const Component = styled.div<{ tokens: DesignTokens }>`
   ${(props) => parseToVars(props.tokens)}
 
-  color-scheme: var(--color-scheme);
+  color-scheme: var(--theme-color-scheme);
 `
 
 export interface ThemeProviderProps {
