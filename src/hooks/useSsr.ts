@@ -7,7 +7,7 @@ export function useSsr() {
     window.document.documentElement
 
   return {
-    isBrowser: isDOM,
     isServer: !isDOM,
+    isBrowser: !!isDOM,
   }
 }
