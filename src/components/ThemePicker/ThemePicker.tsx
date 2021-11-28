@@ -2,7 +2,6 @@ import React from 'react'
 import styled, { css } from 'styled-components'
 import { ThemeKey } from '../../designTokens'
 import { useRootTheme } from '../../providers'
-import { useSsr } from '../../hooks'
 
 const Root = styled.span`
   display: inline-block;
@@ -37,39 +36,27 @@ const Option = styled.option`
   ${commonStyles}
 `
 
-const Placeholder = styled.span`
-  ${commonStyles}
-
-  display: inline-block;
-  padding: 8px;
-`
-
 export interface ThemePickerProps {
   className?: string
 }
 
 export const ThemePicker = (props: ThemePickerProps) => {
-  const { isServer } = useSsr()
   const { themeKey, themeKeys, setThemeKey } = useRootTheme()
 
   return (
     <Root {...props}>
-      {isServer ? (
-        <Placeholder>Theme</Placeholder>
-      ) : (
-        <Select
-          value={themeKey}
-          onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
-            setThemeKey(e.target.value as ThemeKey)
-          }
-        >
-          {themeKeys?.map((theme) => (
-            <Option key={theme} value={theme}>
-              {theme}&nbsp;
-            </Option>
-          ))}
-        </Select>
-      )}
+      <Select
+        value={themeKey}
+        onChange={(e: React.ChangeEvent<HTMLSelectElement>) =>
+          setThemeKey(e.target.value as ThemeKey)
+        }
+      >
+        {themeKeys?.map((theme) => (
+          <Option key={theme} value={theme}>
+            {theme}&nbsp;
+          </Option>
+        ))}
+      </Select>
     </Root>
   )
 }
