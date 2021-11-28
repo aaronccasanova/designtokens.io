@@ -1,9 +1,18 @@
 import deepmerge from 'deepmerge'
+
+import { spacing } from './spacing'
 import { color } from './color'
+import { breakpoints } from './breakpoints'
 
 import { DesignTokens } from './types'
 
-export const light: DesignTokens = deepmerge(color, {
+const common: DesignTokens = {
+  ...breakpoints,
+  ...color,
+  ...spacing,
+}
+
+export const light: DesignTokens = deepmerge(common, {
   color: {
     description: 'Light theme colors.',
     tokens: {
@@ -21,6 +30,7 @@ export const light: DesignTokens = deepmerge(color, {
         description: 'Background colors.',
         tokens: {
           default: { value: '{color.grey.100}' },
+          surface: { value: '{color.grey.50}' },
         },
       },
       text: {
@@ -33,7 +43,7 @@ export const light: DesignTokens = deepmerge(color, {
   },
 })
 
-export const dark: DesignTokens = deepmerge(color, {
+export const dark: DesignTokens = deepmerge(common, {
   color: {
     description: 'Dark theme colors.',
     tokens: {
@@ -51,6 +61,7 @@ export const dark: DesignTokens = deepmerge(color, {
         description: 'Background colors.',
         tokens: {
           default: { value: '{color.grey.900}' },
+          surface: { value: '{color.grey.800}' },
         },
       },
       text: {
@@ -71,6 +82,7 @@ export const dim: DesignTokens = deepmerge(dark, {
         description: 'Background colors.',
         tokens: {
           default: { value: '{color.grey.800}' },
+          surface: { value: '{color.grey.900}' },
         },
       },
     },
