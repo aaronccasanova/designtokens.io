@@ -1,14 +1,14 @@
 import React from 'react'
 import {
   localStorageThemeKey,
-  designTokensThemeClass,
+  rootThemeClass,
   parseToVars,
   themeKeys,
   themes,
   defaultThemeKey,
 } from '../../designTokens'
 
-export function DocumentTheme() {
+export function RootTheme() {
   return (
     <>
       <style
@@ -25,8 +25,6 @@ export function DocumentTheme() {
   )
 }
 
-export default DocumentTheme
-
 /** Removes all repeating white space characters. */
 const trim = (str: string) => str.replace(/\s+/g, ' ')
 
@@ -41,8 +39,8 @@ const setInitialTheme = /* js */ `
 	})();
 
   const root = document.documentElement;
-	root.classList.add('${designTokensThemeClass}' + '-' + initialTheme);
-	root.style.setProperty('--initial-theme', initialTheme);
+	root.classList.add('${rootThemeClass}' + '-' + initialTheme);
+  root.dataset.initialTheme = initialTheme;
 })()
 `
 
@@ -66,7 +64,7 @@ const themeStyles = /* css */ `
         typeof themes[keyof typeof themes],
       ]
 
-      const selector = `.${designTokensThemeClass}-${themeKey}`
+      const selector = `.${rootThemeClass}-${themeKey}`
       const themeVars = parseToVars(designTokens)
 
       return `${selector}{${themeVars}}`

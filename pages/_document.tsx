@@ -1,3 +1,5 @@
+import { ServerStyleSheet } from 'styled-components'
+
 import Document, {
   DocumentContext,
   Head,
@@ -5,8 +7,8 @@ import Document, {
   Main,
   NextScript,
 } from 'next/document'
-import { ServerStyleSheet } from 'styled-components'
-import { DocumentTheme } from '../src/components'
+
+import { RootTheme } from '../src/components'
 
 export default class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -41,7 +43,7 @@ export default class MyDocument extends Document {
       <Html>
         <Head />
         <body>
-          <DocumentTheme />
+          <RootTheme />
           <Main />
           <NextScript />
         </body>

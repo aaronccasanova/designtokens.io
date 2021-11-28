@@ -3,7 +3,7 @@ import {
   defaultThemeKey,
   isThemeKey,
   localStorageThemeKey,
-  designTokensThemeClass,
+  rootThemeClass,
   ThemeKey,
   themeKeys,
   ThemeKeys,
@@ -36,19 +36,14 @@ export interface RootThemeProviderProps {
 }
 
 export function RootThemeProvider(props: RootThemeProviderProps) {
-  const [themeKey, setThemeKey] = React.useState<ThemeKey>(defaultThemeKey)
+  const [themeKey, setThemeKey] = React.useState<ThemeKey>(() => {
+    if (typeof window === 'undefined') return defaultThemeKey
 
-  React.useEffect(() => {
     const root = window.document.documentElement
+    const initialTheme = root.dataset.initialTheme
 
-    const initialThemeKey = root.style.getPropertyValue('--initial-theme')
-
-    console.log('initialThemeKey:', initialThemeKey)
-
-    if (isThemeKey(initialThemeKey)) {
-      setThemeKey(initialThemeKey)
-    }
-  }, [])
+    return isThemeKey(initialTheme) ? initialTheme : defaultThemeKey
+  })
 
   const handleSetThemeKey = (newThemeKey: ThemeKey) => {
     if (!isThemeKey(newThemeKey)) return
@@ -56,8 +51,8 @@ export function RootThemeProvider(props: RootThemeProviderProps) {
     const root = window.document.documentElement
 
     root.classList.replace(
-      `${designTokensThemeClass}-${themeKey}`,
-      `${designTokensThemeClass}-${newThemeKey}`,
+      `${rootThemeClass}-${themeKey}`,
+      `${rootThemeClass}-${newThemeKey}`,
     )
 
     setThemeKey(newThemeKey)

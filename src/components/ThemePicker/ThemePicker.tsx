@@ -5,7 +5,6 @@ import { useRootTheme } from '../../providers'
 
 const Root = styled('span')({
   display: 'inline-block',
-  // margin: 8,
   padding: '0 8px',
   border: `1px solid var(--theme-color-text-primary)`,
   backgroundColor: 'var(--theme-color-background-surface)',
