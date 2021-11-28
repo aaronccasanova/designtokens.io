@@ -1,8 +1,9 @@
 import React from 'react'
 import styled from 'styled-components'
 import Link from 'next/link'
-import { ThemePicker } from '../ThemePicker'
 import { Container as RawContainer } from '../Container'
+import { ThemePicker as RawThemePicker } from '../ThemePicker'
+import { useSsr } from '../../hooks'
 
 const Root = styled.div`
   background-color: var(--theme-color-background-surface);
@@ -12,10 +13,14 @@ const Root = styled.div`
 
 const Container = styled(RawContainer)`
   min-height: 60px;
-  display: flex;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
   align-items: center;
   gap: calc(var(--theme-spacing) * 2);
+`
+
+const ThemePicker = styled(RawThemePicker)`
+  grid-column: 3;
 `
 
 export interface NavbarProps {
@@ -23,13 +28,15 @@ export interface NavbarProps {
 }
 
 export function Navbar(props: NavbarProps) {
+  const { isBrowser } = useSsr()
+
   return (
     <Root className={props.className}>
       <Container>
         <Link href="/">
           <a>designtokens.io</a>
         </Link>
-        <ThemePicker />
+        {isBrowser && <ThemePicker />}
       </Container>
     </Root>
   )
