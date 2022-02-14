@@ -6,7 +6,7 @@ import { parseToVars, DesignTokens, themes } from '../../designTokens'
 const Component = styled.div<{ tokens: DesignTokens }>`
   ${(props) => parseToVars(props.tokens)}
 
-  color-scheme: var(--theme-color-scheme);
+  color-scheme: var(--theme-colors-scheme);
 `
 
 export interface ThemeProviderProps {

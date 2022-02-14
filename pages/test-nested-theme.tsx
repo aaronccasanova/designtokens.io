@@ -6,8 +6,8 @@ import { ThemeProvider } from '../src/providers'
 import { themes } from '../src/designTokens'
 
 const Container = styled.div`
-  background-color: var(--theme-color-background-default);
-  color: var(--theme-color-text-primary);
+  background-color: var(--theme-colors-background-default);
+  color: var(--theme-colors-text-primary);
   font-size: 50px;
   padding: 20px;
 `

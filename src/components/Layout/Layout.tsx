@@ -5,8 +5,8 @@ import { Footer } from '../Footer'
 
 const Root = styled.div`
   min-height: 100vh;
-  background-color: var(--theme-color-background-default);
-  color: var(--theme-color-text-primary);
+  background-color: var(--theme-colors-background-default);
+  color: var(--theme-colors-text-primary);
 
   display: flex;
   flex-direction: column;

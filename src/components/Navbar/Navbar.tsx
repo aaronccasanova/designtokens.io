@@ -10,9 +10,9 @@ const DynamicThemePicker = dynamic(() => import('../ThemePicker'), {
 })
 
 const Root = styled.div`
-  background-color: var(--theme-color-background-surface);
-  color: var(--theme-color-text-primary);
-  border-bottom: 1px solid var(--theme-color-text-primary);
+  background-color: var(--theme-colors-background-surface);
+  color: var(--theme-colors-text-primary);
+  border-bottom: 1px solid var(--theme-colors-text-primary);
 `
 
 const Container = styled(RawContainer)`

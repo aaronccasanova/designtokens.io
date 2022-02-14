@@ -121,8 +121,8 @@ function createContext(options: CreateContextOptions): ParseContext {
      * Parse an alias token value into an array of design token path segments.
      *
      * @example
-     * const alias = { value: '{color.blue.500}'}
-     * ctx.getAliasPath(alias) // ['color', 'blue', '500]
+     * const alias = { value: '{colors.blue.500}'}
+     * ctx.getAliasPath(alias) // ['colors', 'blue', '500]
      */
     getAliasPath: (aliasToken: DesignTokenAlias) => {
       if (!isAliasToken(aliasToken)) {

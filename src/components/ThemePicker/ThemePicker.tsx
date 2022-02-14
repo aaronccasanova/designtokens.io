@@ -6,19 +6,19 @@ import { useRootTheme } from '../../providers'
 const Root = styled.span`
   display: inline-block;
   padding: 0 8px;
-  border: 1px solid var(--theme-color-text-primary);
-  background-color: var(--theme-color-background-surface);
+  border: 1px solid var(--theme-colors-text-primary);
+  background-color: var(--theme-colors-background-surface);
 
   &:focus-within {
-    border: 1px solid var(--theme-color-primary-main);
-    outline: 1px solid var(--theme-color-primary-main);
+    border: 1px solid var(--theme-colors-primary-main);
+    outline: 1px solid var(--theme-colors-primary-main);
   }
 `
 
 const commonStyles = css`
   font-size: 20px;
   padding: 8px 0px;
-  color: var(--theme-color-text-primary);
+  color: var(--theme-colors-text-primary);
   text-transform: capitalize;
   background-color: transparent;
 

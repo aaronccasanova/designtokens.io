@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { Container as RawContainer } from '../Container'
 
 const Root = styled.footer`
-  background-color: var(--theme-color-background-surface);
+  background-color: var(--theme-colors-background-surface);
 `
 
 const Container = styled(RawContainer)`
@@ -15,7 +15,7 @@ const Container = styled(RawContainer)`
   justify-content: center;
   align-items: center;
   gap: calc(var(--theme-spacing) * 2);
-  border-top: 1px solid var(--theme-color-text-primary);
+  border-top: 1px solid var(--theme-colors-text-primary);
 `
 
 export interface FooterProps {

@@ -46,7 +46,7 @@ const setInitialTheme = /* js */ `
 
 const themeStyles = /* css */ `
   :root {
-		color-scheme: var(--theme-color-scheme);
+		color-scheme: var(--theme-colors-scheme);
 
 		${parseToVars(themes.light)}
 	}
