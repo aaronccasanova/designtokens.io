@@ -46,6 +46,7 @@ export interface DesignTokenGroup {
   description?: string
   // This discriminate `tokens` property allows TypeScript to statically validate
   // whether or not the current token is a DesignToken or DesignTokenGroup.
+  // Note: This is the only place we deviate from the Design Tokens Format Module.
   tokens: {
     [tokenOrGroupName: string]:
       | DesignToken

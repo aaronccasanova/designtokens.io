@@ -1,23 +1,21 @@
-import { DesignTokens } from './types'
+import { createDesignTokenGroup } from './creators'
 
-export const breakpoints: DesignTokens = {
-  breakpoints: {
-    tokens: {
-      xs: {
-        value: '0px',
-      },
-      sm: {
-        value: '600px',
-      },
-      md: {
-        value: '960px',
-      },
-      lg: {
-        value: '1200px',
-      },
-      xl: {
-        value: '1536px',
-      },
+export const breakpoints = createDesignTokenGroup({
+  tokens: {
+    xs: {
+      value: '0px',
+    },
+    sm: {
+      value: '600px',
+    },
+    md: {
+      value: '960px',
+    },
+    lg: {
+      value: '1200px',
+    },
+    xl: {
+      value: '1536px',
     },
   },
-}
+})

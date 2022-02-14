@@ -1,7 +1,5 @@
-import { DesignTokens } from './types'
+import { createDesignToken } from './creators'
 
-export const spacing: DesignTokens = {
-  spacing: {
-    value: '4px',
-  },
-}
+export const spacing = createDesignToken({
+  value: '4px',
+})

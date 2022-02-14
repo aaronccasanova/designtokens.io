@@ -1,90 +1,106 @@
 import deepmerge from 'deepmerge'
 
 import { spacing } from './spacing'
-import { color } from './color'
+import { colors } from './colors'
 import { breakpoints } from './breakpoints'
 
-import { DesignTokens } from './types'
+import { createDesignTokens } from './creators'
 
-const common: DesignTokens = {
-  ...breakpoints,
-  ...color,
-  ...spacing,
-}
+const commonDesignTokens = createDesignTokens({
+  breakpoints,
+  colors,
+  spacing,
+})
 
-export const light: DesignTokens = deepmerge(common, {
-  color: {
-    description: 'Light theme colors.',
-    tokens: {
-      scheme: {
-        description: 'Used to influence default browser styles.',
-        value: 'light',
-      },
-      primary: {
-        description: 'Primary theme colors.',
-        tokens: {
-          main: { value: '{color.teal.500}' },
+export const light = deepmerge(
+  commonDesignTokens,
+  createDesignTokens({
+    colors: {
+      description: 'Light theme colors.',
+      tokens: {
+        scheme: {
+          description: 'Used to influence default browser styles.',
+          value: 'light',
         },
-      },
-      background: {
-        description: 'Background colors.',
-        tokens: {
-          default: { value: '{color.grey.100}' },
-          surface: { value: '{color.grey.50}' },
+        primary: {
+          description: 'Primary theme colors.',
+          tokens: {
+            main: { value: '{colors.teal.500}' },
+          },
         },
-      },
-      text: {
-        description: 'Text colors.',
-        tokens: {
-          primary: { value: '{color.grey.900}' },
+        background: {
+          description: 'Background colors.',
+          tokens: {
+            default: { value: '{colors.grey.100}' },
+            surface: { value: '{colors.grey.50}' },
+          },
+        },
+        text: {
+          description: 'Text colors.',
+          tokens: {
+            primary: { value: '{colors.grey.900}' },
+          },
         },
       },
     },
-  },
-})
+  }),
+)
 
-export const dark: DesignTokens = deepmerge(common, {
-  color: {
-    description: 'Dark theme colors.',
-    tokens: {
-      scheme: {
-        description: 'Used to influence default browser styles.',
-        value: 'dark',
-      },
-      primary: {
-        description: 'Primary color intention.',
-        tokens: {
-          main: { value: '{color.teal.300}' },
+export type LightTheme = typeof light
+
+export const dark = deepmerge(
+  commonDesignTokens,
+  createDesignTokens({
+    colors: {
+      description: 'Dark theme colors.',
+      tokens: {
+        scheme: {
+          description: 'Used to influence default browser styles.',
+          value: 'dark',
         },
-      },
-      background: {
-        description: 'Background colors.',
-        tokens: {
-          default: { value: '{color.grey.900}' },
-          surface: { value: '{color.grey.800}' },
+        primary: {
+          description: 'Primary color intention.',
+          tokens: {
+            main: { value: '{colors.teal.300}' },
+          },
         },
-      },
-      text: {
-        description: 'Primary color intention.',
-        tokens: {
-          primary: { value: '{color.grey.100}' },
+        background: {
+          description: 'Background colors.',
+          tokens: {
+            default: { value: '{colors.grey.900}' },
+            surface: { value: '{colors.grey.800}' },
+          },
+        },
+        text: {
+          description: 'Primary color intention.',
+          tokens: {
+            primary: { value: '{colors.grey.100}' },
+          },
         },
       },
     },
-  },
-})
+  }),
+)
 
-export const dim: DesignTokens = deepmerge(dark, {
-  color: {
+export type DarkTheme = typeof dark
+
+const dimOverrides = createDesignTokens({
+  colors: {
     description: 'Dim theme colors',
     tokens: {
       background: {
         description: 'Background colors.',
         tokens: {
-          default: { value: '{color.grey.800}' },
-          surface: { value: '{color.grey.900}' },
+          default: { value: '{colors.grey.800}' },
+          surface: { value: '{colors.grey.900}' },
         },
       },
     },
   },
 })
+
+type DimOverrides = typeof dimOverrides
+
+export const dim = deepmerge<DarkTheme, DimOverrides>(dark, dimOverrides)
+
+export type DimTheme = typeof dim
