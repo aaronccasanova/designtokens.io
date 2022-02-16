@@ -130,33 +130,41 @@ function createContext(options: CreateContextOptions): ParseContext {
      * const alias = { value: '{colors.blue.500}'}
      * ctx.getAliasPath(alias) // ['colors', 'blue', '500]
      */
-    getAliasPath: (aliasToken: DesignTokenAlias) => {
+    getAliasPath(aliasToken: DesignTokenAlias) {
       if (!isAliasToken(aliasToken)) {
         throw new Error('`getAliasPath` can only be called on an alias token.')
       }
 
       return aliasToken.value.trim().slice(1, -1).split('.')
     },
-    getAliasRawPath: (aliasToken: DesignTokenAlias) => {
+    getAliasRawPath(aliasToken: DesignTokenAlias) {
       if (!isAliasToken(aliasToken)) {
         throw new Error(
           '`getAliasRawPath` can only be called on an alias token.',
         )
       }
 
-      console.log('`getAliasRawPath` Not implemented.')
-      return []
+      return aliasToken.value
+        .trim()
+        .slice(1, -1)
+        .replace(/\./g, '.tokens.')
+        .split('.')
     },
-    getAliasValue: function (aliasToken: DesignTokenAlias) {
+    getAliasValue(aliasToken: DesignTokenAlias) {
       if (!isAliasToken(aliasToken)) {
         throw new Error('`getAliasValue` can only be called on an alias token.')
       }
 
-      // const rawPath = this.getAliasRawPath()
-      // const value = get(options.designTokens, rawPath)
+      const rawPath = this.getAliasRawPath(aliasToken)
 
-      console.log('`getAliasValue` Not implemented.')
-      return ''
+      let value: any = options.designTokens
+
+      // TODO: https://github.com/angus-c/just/tree/master/packages/object-safe-get
+      for (const key of rawPath) {
+        value = value[key]
+      }
+
+      return value as DesignToken['value']
     },
   }
 }
