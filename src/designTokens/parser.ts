@@ -1,4 +1,3 @@
-import traverse from 'traverse'
 import type {
   DesignTokens,
   DesignToken,
@@ -12,50 +11,57 @@ interface ParseDesignTokenOptions {
   onGroup?: (group: DesignTokenGroup, context: ParseContext) => void
 }
 
-export function parseDesignTokens(
-  designTokens: DesignTokens,
-  options: ParseDesignTokenOptions,
-): void {
-  // Note: the `forEach` callback must be a function declaration
-  // to allow `this` to be bound to the traversal context.
-  traverse(designTokens).forEach(function (node) {
-    const traverseContext: traverse.TraverseContext = this
+type AllDesignTokens =
+  | DesignTokens
+  | DesignTokenGroup
+  | DesignToken
+  | DesignTokenAlias
 
-    if (isDesignToken(node)) {
-      if (isAliasToken(node)) {
-        const aliasToken = node
+type ParserContext = {
+  path: string[]
+}
 
-        options?.onAlias?.(
-          aliasToken,
-          createContext({ designTokens, traverseContext }),
-        )
-      } else {
-        const designToken = node
-
-        options?.onToken?.(
-          designToken,
-          createContext({ designTokens, traverseContext }),
-        )
-      }
-    } else if (isTokenGroup(node)) {
-      const tokenGroup = node as DesignTokenGroup
-
-      options?.onGroup?.(
-        tokenGroup,
-        createContext({ designTokens, traverseContext }),
-      )
+export function traverse(
+  tokens: AllDesignTokens,
+  cb: (node: AllDesignTokens, context: ParserContext) => void,
+  _path: string[] = [],
+) {
+  Object.entries(tokens).forEach(([key, node]) => {
+    if (typeof node === 'object' && node !== null) {
+      const path = [..._path, key]
+      cb(node, { path })
+      traverse(node, cb, path)
     }
   })
 }
 
+export function parseDesignTokens(
+  designTokens: DesignTokens,
+  options: ParseDesignTokenOptions,
+): void {
+  traverse(designTokens, (node, context) => {
+    if (isDesignToken(node)) {
+      if (isAliasToken(node)) {
+        // Alias token
+        options?.onAlias?.(node, createContext({ designTokens, context }))
+      } else {
+        // Design token
+        options?.onToken?.(node, createContext({ designTokens, context }))
+      }
+    } else if (isTokenGroup(node)) {
+      // Token group
+      options?.onGroup?.(node, createContext({ designTokens, context }))
+    }
+  })
+}
 export function isDesignToken(
-  tokenOrGroup: DesignToken | DesignTokenAlias | DesignTokenGroup,
+  tokenOrGroup: AllDesignTokens,
 ): tokenOrGroup is DesignToken {
   return Boolean((tokenOrGroup as DesignToken)?.value)
 }
 
 export function isAliasToken(
-  tokenOrGroup: DesignToken | DesignTokenAlias | DesignTokenGroup,
+  tokenOrGroup: AllDesignTokens,
 ): tokenOrGroup is DesignTokenAlias {
   if (isDesignToken(tokenOrGroup)) {
     const value = tokenOrGroup.value
@@ -66,7 +72,7 @@ export function isAliasToken(
 }
 
 export function isTokenGroup(
-  tokenOrGroup: DesignToken | DesignTokenAlias | DesignTokenGroup,
+  tokenOrGroup: AllDesignTokens,
 ): tokenOrGroup is DesignTokenGroup {
   return Boolean((tokenOrGroup as DesignTokenGroup)?.tokens)
 }
@@ -110,13 +116,13 @@ interface ParseContext {
 
 interface CreateContextOptions {
   designTokens: DesignTokens
-  traverseContext: traverse.TraverseContext
+  context: ParserContext
 }
 
 function createContext(options: CreateContextOptions): ParseContext {
   return {
-    path: options.traverseContext.path.filter((p) => p !== 'tokens'),
-    rawPath: options.traverseContext.path,
+    path: options.context.path.filter((p) => p !== 'tokens'),
+    rawPath: options.context.path,
     /**
      * Parse an alias token value into an array of design token path segments.
      *
