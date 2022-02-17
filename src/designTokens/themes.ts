@@ -1,10 +1,10 @@
 import deepmerge from 'deepmerge'
 
-import { spacing } from './spacing'
-import { colors } from './colors'
-import { breakpoints } from './breakpoints'
+import { spacing } from './token-groups/spacing'
+import { colors } from './token-groups/colors'
+import { breakpoints } from './token-groups/breakpoints'
 
-import { createDesignTokens } from './creators'
+import { createDesignTokens } from './utils/creators'
 
 const commonDesignTokens = createDesignTokens({
   breakpoints,

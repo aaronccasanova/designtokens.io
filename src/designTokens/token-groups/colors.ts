@@ -1,4 +1,4 @@
-import { createDesignTokenGroup } from './creators'
+import { createDesignTokenGroup } from '../utils/creators'
 
 export const colors = createDesignTokenGroup({
   tokens: {

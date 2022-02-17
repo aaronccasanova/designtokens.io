@@ -3,7 +3,7 @@ import type {
   DesignToken,
   DesignTokenAlias,
   DesignTokenGroup,
-} from './types'
+} from '../utils/types'
 
 interface ParseDesignTokenOptions {
   onToken?: (token: DesignToken, context: ParseContext) => void

@@ -1,5 +1,5 @@
 export * as themes from './themes'
 
-export * from './parseToVars'
+export * from './parsers/parseToVars'
 
-export * from './types'
+export * from './utils/types'

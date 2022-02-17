@@ -1,7 +1,7 @@
 import { parseDesignTokens } from './parser'
-import type { DesignTokens } from './types'
+import type { DesignTokens } from '../utils/types'
 
-import { varCreator } from './utils'
+import { varCreator } from '../utils/utils'
 
 const createVar = varCreator('theme')
 
