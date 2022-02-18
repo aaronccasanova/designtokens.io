@@ -1,5 +1,6 @@
-import * as themes from '../themes'
+import { themes } from '../themes'
 
+// TODO: Move below to themes/index.ts
 export type ThemeKey = keyof typeof themes
 
 export type ThemeKeys = ThemeKey[]
@@ -55,7 +56,9 @@ export interface DesignTokenGroup {
   }
 }
 
+export type AllDesignTokens = DesignToken | DesignTokenAlias | DesignTokenGroup
+
 /** Root Design Tokens Type */
 export type DesignTokens = {
-  [tokenOrGroupName: string]: DesignToken | DesignTokenAlias | DesignTokenGroup
+  [tokenOrGroupName: string]: AllDesignTokens
 }

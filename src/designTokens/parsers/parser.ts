@@ -1,4 +1,5 @@
 import type {
+  AllDesignTokens,
   DesignTokens,
   DesignToken,
   DesignTokenAlias,
@@ -11,18 +12,12 @@ interface ParseDesignTokenOptions {
   onGroup?: (group: DesignTokenGroup, context: ParseContext) => void
 }
 
-type AllDesignTokens =
-  | DesignTokens
-  | DesignTokenGroup
-  | DesignToken
-  | DesignTokenAlias
-
 type ParserContext = {
   path: string[]
 }
 
 export function traverse(
-  tokens: AllDesignTokens,
+  tokens: DesignTokens | DesignTokenGroup,
   cb: (node: AllDesignTokens, context: ParserContext) => void,
   _path: string[] = [],
 ) {
@@ -36,21 +31,21 @@ export function traverse(
 }
 
 export function parseDesignTokens(
-  designTokens: DesignTokens,
+  tokens: DesignTokens | DesignTokenGroup,
   options: ParseDesignTokenOptions,
 ): void {
-  traverse(designTokens, (node, context) => {
+  traverse(tokens, (node, context) => {
     if (isDesignToken(node)) {
       if (isAliasToken(node)) {
         // Alias token
-        options?.onAlias?.(node, createContext({ designTokens, context }))
+        options?.onAlias?.(node, createContext({ tokens, context }))
       } else {
         // Design token
-        options?.onToken?.(node, createContext({ designTokens, context }))
+        options?.onToken?.(node, createContext({ tokens, context }))
       }
     } else if (isTokenGroup(node)) {
       // Token group
-      options?.onGroup?.(node, createContext({ designTokens, context }))
+      options?.onGroup?.(node, createContext({ tokens, context }))
     }
   })
 }
@@ -115,7 +110,7 @@ interface ParseContext {
 }
 
 interface CreateContextOptions {
-  designTokens: DesignTokens
+  tokens: DesignTokens | DesignTokenGroup
   context: ParserContext
 }
 
@@ -157,7 +152,7 @@ function createContext(options: CreateContextOptions): ParseContext {
 
       const rawPath = this.getAliasRawPath(aliasToken)
 
-      let value: any = options.designTokens
+      let value: any = options.tokens
 
       // TODO: https://github.com/angus-c/just/tree/master/packages/object-safe-get
       for (const key of rawPath) {
