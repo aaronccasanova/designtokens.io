@@ -7,29 +7,29 @@ export const lightTheme = deepmerge(
   commonTheme,
   createDesignTokens({
     colors: {
-      description: 'Light theme colors.',
-      tokens: {
+      $description: 'Light theme colors.',
+      $tokens: {
         scheme: {
-          description: 'Used to influence default browser styles.',
-          value: 'light',
+          $description: 'Used to influence default browser styles.',
+          $value: 'light',
         },
         primary: {
-          description: 'Primary theme colors.',
-          tokens: {
-            main: { value: '{colors.teal.500}' },
+          $description: 'Primary theme colors.',
+          $tokens: {
+            main: { $value: '{colors.teal.500}' },
           },
         },
         background: {
-          description: 'Background colors.',
-          tokens: {
-            default: { value: '{colors.grey.100}' },
-            surface: { value: '{colors.grey.50}' },
+          $description: 'Background colors.',
+          $tokens: {
+            default: { $value: '{colors.grey.100}' },
+            surface: { $value: '{colors.grey.50}' },
           },
         },
         text: {
-          description: 'Text colors.',
-          tokens: {
-            primary: { value: '{colors.grey.900}' },
+          $description: 'Text colors.',
+          $tokens: {
+            primary: { $value: '{colors.grey.900}' },
           },
         },
       },

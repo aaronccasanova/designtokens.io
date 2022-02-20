@@ -13,12 +13,12 @@ export const parseToVars = (
   tokens: DesignTokens | DesignTokenGroup,
   options: ParseToVarsOptions = {},
 ) => {
-  const createVar = varCreator(options.prefix || '')
+  const createVar = varCreator(options.prefix)
   const customProperties: string[] = []
 
   parseDesignTokens(tokens, {
     onToken: (token, ctx) => {
-      customProperties.push(`${createVar(ctx.path)}: ${token.value};`)
+      customProperties.push(`${createVar(ctx.path)}: ${token.$value};`)
     },
     onAlias: (alias, ctx) => {
       const cssVar = createVar(ctx.getAliasPath(alias))

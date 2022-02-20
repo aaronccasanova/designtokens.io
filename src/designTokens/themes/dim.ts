@@ -5,13 +5,13 @@ import { darkTheme, DarkTheme } from './dark'
 
 const dimOverrides = createDesignTokens({
   colors: {
-    description: 'Dim theme colors',
-    tokens: {
+    $description: 'Dim theme colors',
+    $tokens: {
       background: {
-        description: 'Background colors.',
-        tokens: {
-          default: { value: '{colors.grey.800}' },
-          surface: { value: '{colors.grey.900}' },
+        $description: 'Background colors.',
+        $tokens: {
+          default: { $value: '{colors.grey.800}' },
+          surface: { $value: '{colors.grey.900}' },
         },
       },
     },

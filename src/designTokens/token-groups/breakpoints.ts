@@ -1,21 +1,21 @@
 import { createDesignTokenGroup } from '../utils/creators'
 
 export const breakpoints = createDesignTokenGroup({
-  tokens: {
+  $tokens: {
     xs: {
-      value: '0px',
+      $value: '0px',
     },
     sm: {
-      value: '600px',
+      $value: '600px',
     },
     md: {
-      value: '960px',
+      $value: '960px',
     },
     lg: {
-      value: '1200px',
+      $value: '1200px',
     },
     xl: {
-      value: '1536px',
+      $value: '1536px',
     },
   },
 })
