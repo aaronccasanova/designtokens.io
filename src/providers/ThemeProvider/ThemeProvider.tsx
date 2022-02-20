@@ -4,7 +4,7 @@ import styled from 'styled-components'
 import { parseToVars, DesignTokens, themes } from '../../designTokens'
 
 const Component = styled.div<{ tokens: DesignTokens }>`
-  ${(props) => parseToVars(props.tokens)}
+  ${(props) => parseToVars(props.tokens, { prefix: 'theme' })}
 
   color-scheme: var(--theme-colors-scheme);
 `

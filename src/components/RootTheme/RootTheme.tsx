@@ -48,12 +48,12 @@ const themeStyles = /* css */ `
   :root {
 		color-scheme: var(--theme-colors-scheme);
 
-		${parseToVars(themes.light)}
+		${parseToVars(themes.light, { prefix: 'theme' })}
 	}
 
 	@media (prefers-color-scheme: dark) {
 		:root {
-			${parseToVars(themes.dark)}
+			${parseToVars(themes.dark, { prefix: 'theme' })}
 		}
 	}
 
@@ -65,7 +65,7 @@ const themeStyles = /* css */ `
       ]
 
       const selector = `.${rootThemeClass}-${themeKey}`
-      const themeVars = parseToVars(designTokens)
+      const themeVars = parseToVars(designTokens, { prefix: 'theme' })
 
       return `${selector}{${themeVars}}`
     })

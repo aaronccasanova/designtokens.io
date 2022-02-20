@@ -1,12 +1,19 @@
 import { parseDesignTokens } from './parser'
 import type { DesignTokens, DesignTokenGroup } from '../utils/types'
 
-import { varCreator } from '../utils/utils'
+import { varCreator } from './utils'
 
-// TODO: Move this inside function and add prefix option
-const createVar = varCreator('theme')
+export type ParseToVarsFormat = 'css'
 
-export const parseToVars = (tokens: DesignTokens | DesignTokenGroup) => {
+export interface ParseToVarsOptions {
+  prefix?: string
+}
+
+export const parseToVars = (
+  tokens: DesignTokens | DesignTokenGroup,
+  options: ParseToVarsOptions = {},
+) => {
+  const createVar = varCreator(options.prefix || '')
   const customProperties: string[] = []
 
   parseDesignTokens(tokens, {

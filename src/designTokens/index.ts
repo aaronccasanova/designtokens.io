@@ -4,4 +4,4 @@ export * from './token-groups'
 
 export * from './parsers'
 
-export * from './utils/types'
+export * from './utils'

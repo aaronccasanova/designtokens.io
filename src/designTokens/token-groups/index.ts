@@ -14,7 +14,9 @@ export const tokenGroups = createDesignTokens({
   spacing,
 })
 
-export type TokenGroupKey = keyof typeof tokenGroups
+export type TokenGroups = typeof tokenGroups
+
+export type TokenGroupKey = keyof TokenGroups
 
 export type TokenGroupKeys = TokenGroupKey[]
 
